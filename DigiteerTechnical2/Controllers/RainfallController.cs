@@ -1,6 +1,7 @@
 ﻿using DigiteerTechnical2.Models;
 using DigiteerTechnical2.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +18,7 @@ namespace DigiteerTechnical2.Controllers
         }
 
         // GET: api/<RainfallController>
-        [HttpGet]
+        [HttpGet("rainfall/id/3680/readings")]
         public async Task<Rainfall?> Get()
         {
             string id = "3680";
@@ -26,8 +27,8 @@ namespace DigiteerTechnical2.Controllers
         }
 
         // GET api/<RainfallController>/5
-        [HttpGet("{id}")]
-        public async Task<Rainfall?> Get(string id, int count)
+        [HttpGet("rainfall/id/{id}/readings")]
+        public async Task<Rainfall?> Get(string id, [FromQuery][Range(1, 100)] int count)
         {
             return await _rainfallService.GetRainfallsAsync(id, count);
         }

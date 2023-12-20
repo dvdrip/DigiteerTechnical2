@@ -4,7 +4,7 @@ namespace DigiteerTechnical2.Services
 {
     public interface IRainfallService
     {
-        public Task<Rainfall?> GetRainfallsAsync(string id, int count);
+        public Task<RainfallReadingResponse?> GetRainfallReadingsAsync(string id, int count);
 
     }
 }

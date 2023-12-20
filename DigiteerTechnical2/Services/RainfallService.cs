@@ -15,13 +15,32 @@ namespace DigiteerTechnical2.Services
             _baseUrl = options.Value.DefaultConnection;
         }
 
-        public async Task<Rainfall?> GetRainfallsAsync(string id, int count)
+        public async Task<RainfallReadingResponse?> GetRainfallReadingsAsync(string id, int count)
         {
             var response = await _httpClient.GetAsync($"{_baseUrl}/flood-monitoring/id/stations/{id}/readings?_sorted&_limit={count}");
             var jsonResult = await response.Content.ReadAsStringAsync();
             var rainfallResult = JsonConvert.DeserializeObject<Rainfall>(jsonResult);
 
-            return rainfallResult;
+            if (rainfallResult == null || rainfallResult.items == null)
+            {
+                return null;
+            }
+
+            var rainfallReadings = new List<RainfallReading>();
+
+            foreach (var item in rainfallResult.items)
+            {
+                var rainfallReading = new RainfallReading();
+                rainfallReading.dateMeasured = item.dateTime;
+                rainfallReading.amountMeasured = item.value;
+
+                rainfallReadings.Add(rainfallReading);
+            }
+
+            var rainfallReadingResponse = new RainfallReadingResponse();
+            rainfallReadingResponse.readings = rainfallReadings;
+
+            return rainfallReadingResponse;
         }
     }
 }

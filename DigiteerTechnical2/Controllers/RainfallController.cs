@@ -18,19 +18,27 @@ namespace DigiteerTechnical2.Controllers
         }
 
         // GET: api/<RainfallController>
-        [HttpGet("/rainfall/id/3680/readings")]
-        public async Task<Rainfall?> Get()
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RainfallReadingResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
+        public async Task<RainfallReadingResponse?> Get()
         {
             string id = "3680";
             int defaultCount = 10;
-            return await _rainfallService.GetRainfallsAsync(id, defaultCount);
+            return await _rainfallService.GetRainfallReadingsAsync(id, defaultCount);
         }
 
         // GET api/<RainfallController>/5
         [HttpGet("/rainfall/id/{id}/readings")]
-        public async Task<Rainfall?> Get(string id, [FromQuery][Range(1, 100)] int count)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RainfallReadingResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
+        public async Task<RainfallReadingResponse?> Get(string id, [FromQuery][Range(1, 100)] int count)
         {
-            return await _rainfallService.GetRainfallsAsync(id, count);
+            return await _rainfallService.GetRainfallReadingsAsync(id, count);
         }
 
         //// POST api/<RainfallController>

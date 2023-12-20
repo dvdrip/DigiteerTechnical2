@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("ConnectionString"));
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("ConnectionStrings"));
 builder.Services.AddHttpClient<RainfallService>();
 builder.Services.AddScoped<RainfallService>();
 

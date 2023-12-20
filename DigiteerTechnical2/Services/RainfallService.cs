@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace DigiteerTechnical2.Services
 {
-    public class RainfallService
+    public class RainfallService : IRainfallService
     {
         private readonly HttpClient _httpClient;
         private readonly string? _baseUrl;
@@ -15,11 +15,11 @@ namespace DigiteerTechnical2.Services
             _baseUrl = options.Value.DefaultConnection;
         }
 
-        public async Task<List<Rainfall>?> GetRainfallsAsync(string id, int count)
+        public async Task<Rainfall?> GetRainfallsAsync(string id, int count)
         {
             var response = await _httpClient.GetAsync($"{_baseUrl}/flood-monitoring/id/stations/{id}/readings?_sorted&_limit={count}");
             var jsonResult = await response.Content.ReadAsStringAsync();
-            var rainfallResult = JsonConvert.DeserializeObject<List<Rainfall>>(jsonResult);
+            var rainfallResult = JsonConvert.DeserializeObject<Rainfall>(jsonResult);
 
             return rainfallResult;
         }

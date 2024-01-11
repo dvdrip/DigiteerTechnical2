@@ -46,7 +46,7 @@ namespace DigiteerTechnical2.Controllers
 
                 if (today)
                 {
-                    filtersBuilder.Append("date=today&");
+                    filtersBuilder.Append($"date={DateTime.Now.ToString("yyyy-MM-dd")}&");
                 }
 
                 if (date.HasValue)

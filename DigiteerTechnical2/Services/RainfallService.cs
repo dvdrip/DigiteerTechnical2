@@ -1,6 +1,7 @@
 ﻿using DigiteerTechnical2.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Runtime.InteropServices;
 
 namespace DigiteerTechnical2.Services
 {
@@ -15,9 +16,9 @@ namespace DigiteerTechnical2.Services
             _baseUrl = options.Value.DefaultConnection;
         }
 
-        public async Task<RainfallReadingResponse?> GetRainfallReadingsAsync(string id, int count)
+        public async Task<RainfallReadingResponse?> GetRainfallReadingsAsync(string id, int count, string filters)
         {
-            var response = await _httpClient.GetAsync($"{_baseUrl}/flood-monitoring/id/stations/{id}/readings?_sorted&_limit={count}");
+            var response = await _httpClient.GetAsync($"{_baseUrl}/flood-monitoring/id/stations/{id}/readings?{filters}&_limit={count}");
             var jsonResult = await response.Content.ReadAsStringAsync();
             var rainfallResult = JsonConvert.DeserializeObject<Rainfall>(jsonResult);
 
@@ -42,5 +43,15 @@ namespace DigiteerTechnical2.Services
 
             return rainfallReadingResponse;
         }
+
+        //public Task<RainfallReadingResponse> GetRainfallReadingsFull(int count)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Task<RainfallReadingResponse> GetRainfallReadingsLatestAsync(string id, int count)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

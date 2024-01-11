@@ -18,17 +18,17 @@ namespace DigiteerTechnical2.Controllers
         }
 
         // GET: api/<RainfallController>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RainfallReadingResponse))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
-        public async Task<RainfallReadingResponse?> Get()
-        {
-            string id = "3680";
-            int defaultCount = 10;
-            return await _rainfallService.GetRainfallReadingsAsync(id, defaultCount);
-        }
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RainfallReadingResponse))]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        //[ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
+        //public async Task<RainfallReadingResponse?> Get()
+        //{
+        //    string id = "3680";
+        //    int defaultCount = 10;
+        //    return await _rainfallService.GetRainfallReadingsAsync(id, defaultCount);
+        //}
 
         // GET api/<RainfallController>/5
         [HttpGet("/rainfall/id/{id}/readings")]
